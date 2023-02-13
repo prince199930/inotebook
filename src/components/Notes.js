@@ -86,31 +86,31 @@ function Notes(props) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Edit Student</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <form className="my-3">
                                 <div className="mb-3">
-                                    <label htmlFor="title" className="form-label">Title</label>
+                                    <label htmlFor="title" className="form-label">Name</label>
                                     <input type="text" className="form-control" id="etitle" name="etitle" aria-describedby="emailHelp" onChange={onChange} value={note.etitle} minLength={5} required />
 
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription} minLength={5} required />
+                                    <label htmlFor="description" className="form-label">Email</label>
+                                    <input type="email" className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="linkedin" className="form-label">Linkedin</label>
+                                    <label htmlFor="linkedin" className="form-label">Location</label>
                                     <input type="text" className="form-control" id="elinkedin" name="elinkedin" onChange={onChange} value={note.elinkedin} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="twitter" className="form-label">Twitter</label>
+                                    <label htmlFor="twitter" className="form-label">Description</label>
                                     <input type="text" className="form-control" id="etwitter" name="etwitter" onChange={onChange} value={note.etwitter} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="instagram" className="form-label">Instagram</label>
-                                    <input type="text" className="form-control" id="einstagram" name="einstagram" onChange={onChange} value={note.einstagram} />
+                                    <label htmlFor="instagram" className="form-label">Contact no</label>
+                                    <input type="number" className="form-control" id="einstagram" name="einstagram" onChange={onChange} value={note.einstagram} />
                                 </div>
                                 <div className="mb-3">
                                     <JoditEditor
