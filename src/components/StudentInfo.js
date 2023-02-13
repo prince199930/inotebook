@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useContext } from 'react'
 import noteContext from '../context/notes/noteContext'
-import NoteItem from './NoteItem'
-// import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Navbar from './Navbar'
+import StudentDetail from './StudentDetail'
 
 
 function StudentInfo(props) {
@@ -32,7 +30,7 @@ function StudentInfo(props) {
                     {noteItem.length === 0 && "You have no notes"}
                 </div>
                 {noteItem.map((note) => {
-                    return <NoteItem key={note._id} showAlert={props.showAlert}  note={note} />
+                    return <StudentDetail key={note._id} showAlert={props.showAlert}  note={note} />
                 })}
             </div>
         </>
