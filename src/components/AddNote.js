@@ -44,7 +44,7 @@ function AddNote(props) {
     }
     return (
         <div className="container my-3">
-            <h2>Add a Note</h2>
+            <h2>Add Student Info</h2>
             <form className="my-3">
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Name</label>
