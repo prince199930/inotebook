@@ -7,7 +7,7 @@ function Signup(props) {
     const handleSubmit = async (e) => {
         const {name, email, password} = credentials
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/api/auth/createuser`, {
+        const response = await fetch(`http://localhost:8000/api/auth/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,13 +16,11 @@ function Signup(props) {
             body: JSON.stringify({name, email, password})
         });
         const json = await response.json();
-        console.log(json)
         if(json.success){
             // save the auth toke and redirect to
             localStorage.setItem('token', json.authtoken)
-            // window.location.href = '/'
             props.showAlert("Successfully created your account", "success")
-            history.push('/')
+            history.push('/note')
            
         }
         else{
@@ -37,6 +35,7 @@ function Signup(props) {
 
     return (
         <div className="container">
+            <h1>STUDENT SIGNUP</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
@@ -49,11 +48,11 @@ function Signup(props) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" id="password" name="password" className="form-control" id="password" onChange={onChange} minLength={5} required />
+                    <input type="password"  name="password" className="form-control" id="password" onChange={onChange} minLength={5} required />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-                    <input type="password" id="cpassword" name="cpassword" className="form-control" id="cpassword" onChange={onChange} minLength={5} required />
+                    <input type="password"  name="cpassword" className="form-control" id="cpassword" onChange={onChange} minLength={5} required />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

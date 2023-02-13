@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 const NotesSchema = new Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+        ref:'user' || 'studentuser'
     },
     title: {
         type: String,
@@ -14,9 +14,25 @@ const NotesSchema = new Schema({
         type: String,
         required: true,
     },
-    tag: {
+    linkedin: {
         type: String,
-        default:"General"
+        required: true,
+    },
+    twitter: {
+        type: String,
+        required: true,
+    },
+    instagram: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    database_fileName:{
+        type:String,
+        required:true,
     },
     date: {
         type: Date,

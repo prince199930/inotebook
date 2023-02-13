@@ -6,7 +6,7 @@ function Login(props) {
     let history = useHistory();
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/api/auth/login`, {
+        const response = await fetch(`http://localhost:8000/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,13 +15,10 @@ function Login(props) {
             body: JSON.stringify({email:credentials.email, password:credentials.password})
         });
         const json = await response.json();
-        console.log(json)
         if(json.success){
             // save the auth token and redirect to
             localStorage.setItem('token', json.authtoken)
-            console.log(json.authtoken)
-            // window.location.href = '/'
-            history.push('/')
+            history.push('/note')
             props.showAlert("Successfully Loged In", "success")
         }
         else{
@@ -36,6 +33,7 @@ function Login(props) {
 
     return (
         <div>
+            <h1>STUDENT LOGIN</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

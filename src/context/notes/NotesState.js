@@ -1,8 +1,9 @@
 import react, { useState } from "react";
 import NoteContext from "./noteContext";
 
+import axios from 'axios'
 const NoteState = (props) => {
-    const host = "http://localhost:5000";
+    const host = "http://localhost:8000";
     const notesInitial = []
     const [notes, setNotes] = useState(notesInitial);
 
@@ -26,22 +27,17 @@ const NoteState = (props) => {
     }
 
     //Add a Note
-    const addNote = async(title, description, tag) => {
-
-        //API CALL
-        const response = await fetch(`${host}/api/notes/addnote`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': localStorage.getItem('token')
-
-            },
-            body: JSON.stringify({title, description, tag})
-        });
-
-        const note = await response.json();
-        setNotes(notes.concat(note));
+    const addNote = async(formData_value) => {
+        for (var pair of formData_value.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+        }
+        console.log(formData_value,'formdata')
+        const response = await axios.post(`${host}/api/notes/addnote`,formData_value,
+        { headers: {"auth-token" : ` ${localStorage.getItem('token')}`} }
+        ).then((response)=>console.log(response.data)).catch((err)=>console.log(err))
+        getNote();
     }
+
 
     //Delete a Note
     const deleteNote = async(id) => {
@@ -62,36 +58,40 @@ const NoteState = (props) => {
     }
 
     //Edit a Note
-    const editNote = async (id, title, description, tag) => {
+    const editNoteWithoutImg = async ({note, eimage, econtent} ) => {
+        console.log("this is em note", note , eimage, econtent)
         //API CALL
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: 'PUT',
+        const response = await fetch(`${host}/api/notes/updatenote/${note.id}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': localStorage.getItem('token')
 
             },
-            body: JSON.stringify({title, description, tag})
+            body: JSON.stringify({note, eimage, econtent})
         });
-        const json = await response.json();
+        getNote();
 
-        let newNotes = JSON.parse(JSON.stringify(notes));
-        for (let i = 0; i < newNotes.length; i++) {
-            const element = newNotes[i];
-            if (element._id === id) {
-                newNotes[i].title = title;
-                newNotes[i].description = description;
-                newNotes[i].tag = tag;
-                break;
+        
+    }
+    const editNoteWithImg = async (formData_value) => {
+        console.log("this is em formdata", formData_value )
+        let formDataId ;
+        for (var pair of formData_value.entries()) {
+            console.log(pair[0] + ", " + pair[1], "IDS");
+            if(pair[0] === "id"){
+                formDataId = pair[1]
             }
-            
         }
-        setNotes(newNotes);
+        const response = await axios.post(`${host}/api/notes/updatenote/${formDataId}`, formData_value,{
+            headers: {"auth-token" : ` ${localStorage.getItem('token')}`} 
+        })
+        getNote();
     }
 
     
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getNote }}>
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNoteWithoutImg,editNoteWithImg, getNote }}>
             {props.children}
         </NoteContext.Provider>
     )

@@ -1,21 +1,25 @@
 const connectToMongo = require('./db');
 const express = require('express')
 var cors = require('cors')
+const path = require("path");
 connectToMongo();
 const app = express()
-const port = 5000
+const port = 8000
+
+const fileupload = require('express-fileupload')
 
 app.use(cors())
 app.use(express.json())
+app.use(fileupload())
+app.use(express.static("./"))
 
-// app.get('/', (req, res) => {
-//   res.send('Hello harry')
-// })
+
 
 app.use(express.json())
 
 //Available routes
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/studentauth', require('./routes/studentauth'))
 app.use('/api/notes', require('./routes/notes'))
 
 app.listen(port, () => {

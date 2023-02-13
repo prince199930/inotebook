@@ -56,6 +56,7 @@ router.post('/login', [
     body('email', "enter a valid email address").isEmail(),
     body('password', "Password Password can not be blank").exists()
 ], async (req, res) => {
+    console.log(req.body,"jdhsjkn")
     let success = false;
     //If there are errors, return the errors and Bad request
     const errors = validationResult(req);
@@ -97,6 +98,7 @@ router.post('/login', [
 
 //ROUTE 3 : Get Logged in user details using: POST "/api/auth/getuser". Login required.
 router.post('/getuser', fetchuser, async (req, res) => {
+    console.log(req.user.id,'userkidid')
     try {
         userId = req.user.id;
         const user = await User.findById(userId).select('-password');
